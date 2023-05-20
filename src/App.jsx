@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import {
+  Admin,
   Register,
   Login,
   Home,
