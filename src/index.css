@@ -106,7 +106,7 @@ li {
   margin-left: 0.25rem;
 }
 
-.errmsg {
+.errormessage {
   background-color: lightpink;
   color: firebrick;
   font-weight: bold;

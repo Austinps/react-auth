@@ -16,9 +16,11 @@ export function UsernameNote({ userFocus, user, validName }) {
   );
 }
 
-export function PasswordNote({ pwdFocus, validPwd }) {
+export function PasswordNote({ passwordFocus, validPassword }) {
   return (
-    <p className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+    <p
+      className={passwordFocus && !validPassword ? "instructions" : "offscreen"}
+    >
       <FontAwesomeIcon icon={faInfoCircle} />
       8 to 24 characters.
       <br />

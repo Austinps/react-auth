@@ -21,15 +21,15 @@ export default function Register() {
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
 
-  const [pwd, setPwd] = useState("");
-  const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
+  const [password, setPassword] = useState("");
+  const [validPassword, setValidPassword] = useState(false);
+  const [passwordFocus, setPasswordFocus] = useState(false);
 
-  const [confirmPwd, setConfirmPwd] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
-  const [errMsg, setErrMsg] = useState("");
+  const [errMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -41,27 +41,27 @@ export default function Register() {
   }, [user]);
 
   useEffect(() => {
-    setValidPwd(PWD_REGEX.test(pwd));
-    setValidMatch(pwd === confirmPwd);
-  }, [pwd, confirmPwd]);
+    setValidPassword(PWD_REGEX.test(password));
+    setValidMatch(password === confirmPassword);
+  }, [password, confirmPassword]);
 
   useEffect(() => {
-    setErrMsg("");
-  }, [user, pwd, confirmPwd]);
+    setErrorMessage("");
+  }, [user, password, confirmPassword]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
     const v1 = USER_REGEX.test(user);
-    const v2 = PWD_REGEX.test(pwd);
+    const v2 = PWD_REGEX.test(password);
     if (!v1 || !v2) {
-      setErrMsg("Invalid Entry");
+      setErrorMessage("Invalid Entry");
       return;
     }
     try {
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ user, password }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -70,15 +70,15 @@ export default function Register() {
       console.log(JSON.stringify(response?.data));
       setSuccess(true);
       setUser("");
-      setPwd("");
-      setConfirmPwd("");
+      setPassword("");
+      setConfirmPassword("");
     } catch (err) {
       if (!err?.response) {
-        setErrMsg("No Server Response");
+        setErrorMessage("No Server Response");
       } else if (err.response?.status === 409) {
-        setErrMsg("Username Taken");
+        setErrorMessage("Username Taken");
       } else {
-        setErrMsg("Registration Failed");
+        setErrorMessage("Registration Failed");
       }
       errRef.current.focus();
     }
@@ -97,10 +97,10 @@ export default function Register() {
         <section>
           <p
             ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
+            className={errMessage ? "errmessage" : "offscreen"}
             aria-live="assertive"
           >
-            {errMsg}
+            {errMessage}
           </p>
           <h1>Register</h1>
           <form onSubmit={handleSubmit}>
@@ -139,47 +139,47 @@ export default function Register() {
               Password:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validPwd ? "valid" : "hide"}
+                className={validPassword ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validPwd || !pwd ? "hide" : "invalid"}
+                className={validPassword || !password ? "hide" : "invalid"}
               />
             </label>
             <input
               type="password"
               id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
               required
-              aria-invalid={validPwd ? "false" : "true"}
-              aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
+              aria-invalid={validPassword ? "false" : "true"}
+              aria-describedby="passwordnote"
+              onFocus={() => setPasswordFocus(true)}
+              onBlur={() => setPasswordFocus(false)}
             />
 
             <PasswordNote
-              id="pwdnote"
-              pwdFocus={pwdFocus}
-              validPwd={validPwd}
+              id="passwordnote"
+              passwordFocus={passwordFocus}
+              validPassword={validPassword}
             />
 
-            <label htmlFor="confirm_pwd">
+            <label htmlFor="confirm_password">
               Confirm Password:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validMatch && confirmPwd ? "valid" : "hide"}
+                className={validMatch && confirmPassword ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validMatch || !confirmPwd ? "hide" : "invalid"}
+                className={validMatch || !confirmPassword ? "hide" : "invalid"}
               />
             </label>
             <input
               type="password"
-              id="confirm_pwd"
-              onChange={(e) => setConfirmPwd(e.target.value)}
-              value={confirmPwd}
+              id="confirm_password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
               required
               aria-invalid={validMatch ? "false" : "true"}
               aria-describedby="confirmnote"
@@ -192,7 +192,9 @@ export default function Register() {
               validMatch={validMatch}
             />
             <button
-              disabled={!validName || !validPwd || !validMatch ? true : false}
+              disabled={
+                !validName || !validPassword || !validMatch ? true : false
+              }
             >
               Sign Up
             </button>

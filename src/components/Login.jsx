@@ -18,8 +18,8 @@ export default function Login() {
   const errRef = useRef();
 
   const [user, resetUser, userAttribs] = useInput("user", "");
-  const [pwd, setPwd] = useState("");
-  const [errMsg, setErrMsg] = useState("");
+  const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
   const [check, toggleCheck] = useToggle("persist", false);
 
   useEffect(() => {
@@ -27,8 +27,8 @@ export default function Login() {
   }, []);
 
   useEffect(() => {
-    setErrMsg("");
-  }, [user, pwd]);
+    setErrMessage("");
+  }, [user, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ export default function Login() {
     try {
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ user, password }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -44,19 +44,19 @@ export default function Login() {
       );
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
+      setAuth({ user, password, roles, accessToken });
       resetUser();
-      setPwd("");
+      setPassword("");
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
-        setErrMsg("No Server Response");
+        setErrMessage("No Server Response");
       } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
+        setErrMessage("Missing Username or Password");
       } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
+        setErrMessage("Unauthorized");
       } else {
-        setErrMsg("Login Failed");
+        setErrMessage("Login Failed");
       }
       errRef.current.focus();
     }
@@ -66,10 +66,10 @@ export default function Login() {
     <section>
       <p
         ref={errRef}
-        className={errMsg ? "errmsg" : "offscreen"}
+        className={errMessage ? "errmessage" : "offscreen"}
         aria-live="assertive"
       >
-        {errMsg}
+        {errMessage}
       </p>
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
@@ -87,8 +87,8 @@ export default function Login() {
         <input
           type="password"
           id="password"
-          onChange={(e) => setPwd(e.target.value)}
-          value={pwd}
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
           required
         />
         <button>Sign In</button>
