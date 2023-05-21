@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from "react";
-import {
-  faCheck,
-  faTimes,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "../api/axios";
 import { Link } from "react-router-dom";
+import axios from "../api/axios";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  UsernameNote,
+  PasswordNote,
+  ConfirmPasswordNote,
+} from "./FormElements/Notes";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -24,7 +25,7 @@ export default function Register() {
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
 
-  const [matchPwd, setMatchPwd] = useState("");
+  const [confirmPwd, setConfirmPwd] = useState("");
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
@@ -41,12 +42,12 @@ export default function Register() {
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
-    setValidMatch(pwd === matchPwd);
-  }, [pwd, matchPwd]);
+    setValidMatch(pwd === confirmPwd);
+  }, [pwd, confirmPwd]);
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd, matchPwd]);
+  }, [user, pwd, confirmPwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,7 +71,7 @@ export default function Register() {
       setSuccess(true);
       setUser("");
       setPwd("");
-      setMatchPwd("");
+      setConfirmPwd("");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -167,25 +168,29 @@ export default function Register() {
               Confirm Password:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validMatch && matchPwd ? "valid" : "hide"}
+                className={validMatch && confirmPwd ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validMatch || !matchPwd ? "hide" : "invalid"}
+                className={validMatch || !confirmPwd ? "hide" : "invalid"}
               />
             </label>
             <input
               type="password"
               id="confirm_pwd"
-              onChange={(e) => setMatchPwd(e.target.value)}
-              value={matchPwd}
+              onChange={(e) => setConfirmPwd(e.target.value)}
+              value={confirmPwd}
               required
               aria-invalid={validMatch ? "false" : "true"}
               aria-describedby="confirmnote"
               onFocus={() => setMatchFocus(true)}
               onBlur={() => setMatchFocus(false)}
             />
-            <ConfirmPasswordNote id="confirmnote" />
+            <ConfirmPasswordNote
+              id="confirmnote"
+              matchFocus={matchFocus}
+              validMatch={validMatch}
+            />
             <button
               disabled={!validName || !validPwd || !validMatch ? true : false}
             >
@@ -202,48 +207,5 @@ export default function Register() {
         </section>
       )}
     </>
-  );
-}
-
-function UsernameNote({ userFocus, user, validName }) {
-  return (
-    <p
-      className={userFocus && user && !validName ? "instructions" : "offscreen"}
-    >
-      <FontAwesomeIcon icon={faInfoCircle} />
-      4 to 24 characters.
-      <br />
-      Must begin with a letter.
-      <br />
-      Letters, numbers, underscores, hyphens allowed.
-    </p>
-  );
-}
-
-function PasswordNote({ pwdFocus, validPwd }) {
-  return (
-    <p className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-      <FontAwesomeIcon icon={faInfoCircle} />
-      8 to 24 characters.
-      <br />
-      Must include uppercase and lowercase letters, a number and a special
-      character.
-      <br />
-      Allowed special characters: <span aria-label="exclamation mark">
-        !
-      </span>{" "}
-      <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span>{" "}
-      <span aria-label="dollar sign">$</span>{" "}
-      <span aria-label="percent">%</span>
-    </p>
-  );
-}
-
-function ConfirmPasswordNote() {
-  return (
-    <p className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
-      <FontAwesomeIcon icon={faInfoCircle} />
-      Must match the first password input field.
-    </p>
   );
 }
