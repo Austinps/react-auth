@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 
-const Home = () => {
+export default function Home() {
   const navigate = useNavigate();
   const logout = useLogout();
 
@@ -28,6 +28,4 @@ const Home = () => {
       </div>
     </section>
   );
-};
-
-export default Home;
+}

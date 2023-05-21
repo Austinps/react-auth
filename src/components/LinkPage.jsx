@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const LinkPage = () => {
+export default function LinkPage() {
   return (
     <section>
       <h1>Links</h1>
@@ -15,6 +15,4 @@ const LinkPage = () => {
       <Link to="/admin">Admin Page</Link>
     </section>
   );
-};
-
-export default LinkPage;
+}

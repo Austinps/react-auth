@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Users from "./Users";
 
-const Admin = () => {
+export default function Admin() {
   return (
     <section>
       <h1>Admins Page</h1>
@@ -13,6 +13,4 @@ const Admin = () => {
       </div>
     </section>
   );
-};
-
-export default Admin;
+}

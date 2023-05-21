@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Lounge = () => {
+export default function Lounge() {
   return (
     <section>
       <h1>Private Area</h1>
@@ -11,6 +11,4 @@ const Lounge = () => {
       </div>
     </section>
   );
-};
-
-export default Lounge;
+}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Editor = () => {
+export default function Editor() {
   return (
     <section>
       <h1>Editors Page</h1>
@@ -11,6 +11,4 @@ const Editor = () => {
       </div>
     </section>
   );
-};
-
-export default Editor;
+}

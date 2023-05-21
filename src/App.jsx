@@ -20,7 +20,7 @@ const ROLES = {
   Admin: 5150,
 };
 
-function App() {
+export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -57,5 +57,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;

@@ -7,7 +7,7 @@ import useToggle from "../hooks/useToggle";
 import axios from "../api/axios";
 const LOGIN_URL = "/auth";
 
-const Login = () => {
+export default function Login() {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
@@ -111,6 +111,4 @@ const Login = () => {
       </p>
     </section>
   );
-};
-
-export default Login;
+}
