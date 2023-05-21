@@ -66,11 +66,8 @@ export default function Register() {
           withCredentials: true,
         }
       );
-      // TODO: remove console.logs before deployment
       console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response))
       setSuccess(true);
-      //clear state and controlled inputs
       setUser("");
       setPwd("");
       setMatchPwd("");
@@ -160,7 +157,11 @@ export default function Register() {
               onBlur={() => setPwdFocus(false)}
             />
 
-            <SpecialCharacters pwdFocus={pwdFocus} validPwd={validPwd} />
+            <PasswordNote
+              id="pwdnote"
+              pwdFocus={pwdFocus}
+              validPwd={validPwd}
+            />
 
             <label htmlFor="confirm_pwd">
               Confirm Password:
@@ -184,16 +185,7 @@ export default function Register() {
               onFocus={() => setMatchFocus(true)}
               onBlur={() => setMatchFocus(false)}
             />
-            <p
-              id="confirmnote"
-              className={
-                matchFocus && !validMatch ? "instructions" : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Must match the first password input field.
-            </p>
-
+            <ConfirmPasswordNote id="confirmnote" />
             <button
               disabled={!validName || !validPwd || !validMatch ? true : false}
             >
@@ -213,12 +205,24 @@ export default function Register() {
   );
 }
 
-function SpecialCharacters({ pwdFocus, validPwd }) {
+function UsernameNote({ userFocus, user, validName }) {
   return (
     <p
-      id="pwdnote"
-      className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
+      className={userFocus && user && !validName ? "instructions" : "offscreen"}
     >
+      <FontAwesomeIcon icon={faInfoCircle} />
+      4 to 24 characters.
+      <br />
+      Must begin with a letter.
+      <br />
+      Letters, numbers, underscores, hyphens allowed.
+    </p>
+  );
+}
+
+function PasswordNote({ pwdFocus, validPwd }) {
+  return (
+    <p className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
       <FontAwesomeIcon icon={faInfoCircle} />
       8 to 24 characters.
       <br />
@@ -235,17 +239,11 @@ function SpecialCharacters({ pwdFocus, validPwd }) {
   );
 }
 
-function UsernameNote({ userFocus, user, validName }) {
+function ConfirmPasswordNote() {
   return (
-    <p
-      className={userFocus && user && !validName ? "instructions" : "offscreen"}
-    >
+    <p className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
       <FontAwesomeIcon icon={faInfoCircle} />
-      4 to 24 characters.
-      <br />
-      Must begin with a letter.
-      <br />
-      Letters, numbers, underscores, hyphens allowed.
+      Must match the first password input field.
     </p>
   );
 }
