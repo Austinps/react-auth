@@ -130,19 +130,12 @@ export default function Register() {
               onFocus={() => setUserFocus(true)}
               onBlur={() => setUserFocus(false)}
             />
-            <p
+            <UsernameNote
               id="uidnote"
-              className={
-                userFocus && user && !validName ? "instructions" : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </p>
+              userFocus={userFocus}
+              user={user}
+              validName={validName}
+            />
 
             <label htmlFor="password">
               Password:
@@ -166,18 +159,8 @@ export default function Register() {
               onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
             />
-            <p
-              id="pwdnote"
-              className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
-              <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
-              <br />
-              <SpecialCharacters />
-            </p>
+
+            <SpecialCharacters pwdFocus={pwdFocus} validPwd={validPwd} />
 
             <label htmlFor="confirm_pwd">
               Confirm Password:
@@ -230,13 +213,39 @@ export default function Register() {
   );
 }
 
-function SpecialCharacters() {
+function SpecialCharacters({ pwdFocus, validPwd }) {
   return (
-    <p>
-      Allowed special characters: <span aria-label="exclamation mark">!</span>{" "}
+    <p
+      id="pwdnote"
+      className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
+    >
+      <FontAwesomeIcon icon={faInfoCircle} />
+      8 to 24 characters.
+      <br />
+      Must include uppercase and lowercase letters, a number and a special
+      character.
+      <br />
+      Allowed special characters: <span aria-label="exclamation mark">
+        !
+      </span>{" "}
       <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span>{" "}
       <span aria-label="dollar sign">$</span>{" "}
       <span aria-label="percent">%</span>
+    </p>
+  );
+}
+
+function UsernameNote({ userFocus, user, validName }) {
+  return (
+    <p
+      className={userFocus && user && !validName ? "instructions" : "offscreen"}
+    >
+      <FontAwesomeIcon icon={faInfoCircle} />
+      4 to 24 characters.
+      <br />
+      Must begin with a letter.
+      <br />
+      Letters, numbers, underscores, hyphens allowed.
     </p>
   );
 }
