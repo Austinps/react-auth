@@ -43,7 +43,7 @@ export default function Users() {
           ))}
         </ul>
       ) : (
-        <p>No users to display</p>
+        <p>There are no users</p>
       )}
     </article>
   );

@@ -7,7 +7,7 @@ import {
   UsernameNote,
   PasswordNote,
   ConfirmPasswordNote,
-} from "./FormElements/Notes";
+} from "../components/FormElements/Notes";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -90,7 +90,7 @@ export default function Register() {
         <section>
           <h1>Success!</h1>
           <p>
-            <a href="#">Sign In</a>
+            <a href='#'>Sign In</a>
           </p>
         </section>
       ) : (
@@ -98,13 +98,13 @@ export default function Register() {
           <p
             ref={errRef}
             className={errMessage ? "errmessage" : "offscreen"}
-            aria-live="assertive"
+            aria-live='assertive'
           >
             {errMessage}
           </p>
           <h1>Register</h1>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">
+            <label htmlFor='username'>
               Username:
               <FontAwesomeIcon
                 icon={faCheck}
@@ -116,26 +116,26 @@ export default function Register() {
               />
             </label>
             <input
-              type="text"
-              id="username"
+              type='text'
+              id='username'
               ref={userRef}
-              autoComplete="off"
+              autoComplete='off'
               onChange={(e) => setUser(e.target.value)}
               value={user}
               required
               aria-invalid={validName ? "false" : "true"}
-              aria-describedby="uidnote"
+              aria-describedby='uidnote'
               onFocus={() => setUserFocus(true)}
               onBlur={() => setUserFocus(false)}
             />
             <UsernameNote
-              id="uidnote"
+              id='uidnote'
               userFocus={userFocus}
               user={user}
               validName={validName}
             />
 
-            <label htmlFor="password">
+            <label htmlFor='password'>
               Password:
               <FontAwesomeIcon
                 icon={faCheck}
@@ -147,24 +147,24 @@ export default function Register() {
               />
             </label>
             <input
-              type="password"
-              id="password"
+              type='password'
+              id='password'
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required
               aria-invalid={validPassword ? "false" : "true"}
-              aria-describedby="passwordnote"
+              aria-describedby='passwordnote'
               onFocus={() => setPasswordFocus(true)}
               onBlur={() => setPasswordFocus(false)}
             />
 
             <PasswordNote
-              id="passwordnote"
+              id='passwordnote'
               passwordFocus={passwordFocus}
               validPassword={validPassword}
             />
 
-            <label htmlFor="confirm_password">
+            <label htmlFor='confirm_password'>
               Confirm Password:
               <FontAwesomeIcon
                 icon={faCheck}
@@ -176,18 +176,18 @@ export default function Register() {
               />
             </label>
             <input
-              type="password"
-              id="confirm_password"
+              type='password'
+              id='confirm_password'
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               required
               aria-invalid={validMatch ? "false" : "true"}
-              aria-describedby="confirmnote"
+              aria-describedby='confirmnote'
               onFocus={() => setMatchFocus(true)}
               onBlur={() => setMatchFocus(false)}
             />
             <ConfirmPasswordNote
-              id="confirmnote"
+              id='confirmnote'
               matchFocus={matchFocus}
               validMatch={validMatch}
             />
@@ -202,8 +202,8 @@ export default function Register() {
           <p>
             Already registered?
             <br />
-            <span className="line">
-              <Link to="/">Sign In</Link>
+            <span className='line'>
+              <Link to='/'>Sign In</Link>
             </span>
           </p>
         </section>

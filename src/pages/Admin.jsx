@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Users from "./Users";
+import Users from "../components/Users";
 
 export default function Admin() {
   return (
@@ -8,8 +8,8 @@ export default function Admin() {
       <br />
       <Users />
       <br />
-      <div className="flexGrow">
-        <Link to="/">Home</Link>
+      <div className='flexGrow'>
+        <Link to='/'>Home</Link>
       </div>
     </section>
   );
