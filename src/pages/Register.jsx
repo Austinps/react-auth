@@ -8,6 +8,7 @@ import {
   PasswordNote,
   ConfirmPasswordNote,
 } from "../components/FormElements/Notes";
+import { Button } from "@chakra-ui/react";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -51,7 +52,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if button enabled with JS hack
+
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(password);
     if (!v1 || !v2) {
@@ -191,13 +192,13 @@ export default function Register() {
               matchFocus={matchFocus}
               validMatch={validMatch}
             />
-            <button
+            <Button
               disabled={
                 !validName || !validPassword || !validMatch ? true : false
               }
             >
               Sign Up
-            </button>
+            </Button>
           </form>
           <p>
             Already registered?

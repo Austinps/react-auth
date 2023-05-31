@@ -67,46 +67,46 @@ export default function Login() {
       <p
         ref={errRef}
         className={errMessage ? "errmessage" : "offscreen"}
-        aria-live="assertive"
+        aria-live='assertive'
       >
         {errMessage}
       </p>
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username:</label>
+        <label htmlFor='username'>Username:</label>
         <input
-          type="text"
-          id="username"
+          type='text'
+          id='username'
           ref={userRef}
-          autoComplete="off"
+          autoComplete='off'
           {...userAttribs}
           required
         />
 
-        <label htmlFor="password">Password:</label>
+        <label htmlFor='password'>Password:</label>
         <input
-          type="password"
-          id="password"
+          type='password'
+          id='password'
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           required
         />
         <button>Sign In</button>
-        <div className="persistCheck">
+        <div className='persistCheck'>
           <input
-            type="checkbox"
-            id="persist"
+            type='checkbox'
+            id='persist'
             onChange={toggleCheck}
             checked={check}
           />
-          <label htmlFor="persist">Trust This Device</label>
+          <label htmlFor='persist'>Trust This Device</label>
         </div>
       </form>
       <p>
         Need an Account?
         <br />
-        <span className="line">
-          <Link to="/register">Sign Up</Link>
+        <span className='line'>
+          <Link to='/register'>Sign Up</Link>
         </span>
       </p>
     </section>

@@ -8,5 +8,3 @@ export { default as NotFound } from "./NotFound";
 export { default as Unauthorized } from "./Unauthorised";
 export { default as Lounge } from "./Lounge";
 export { default as LinkPage } from "./LinkPage";
-export { default as RequireAuth } from "./RequireAuth";
-export { default as PersistLogin } from "./PersistLogin";
