@@ -58,5 +58,5 @@ The application supports the following routes:
 /\*: 404 page.
 Feel free to explore and modify the routes, components, and configurations to suit your authentication requirements.
 
-License
+## License
 This project is private and not publicly available.
